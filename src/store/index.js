@@ -1,11 +1,11 @@
 import { createStore } from 'redux';
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const init = { counter: 0, showCounter: true };
+const initialState = { counter: 0, showCounter: true };
 //@ redux toolkits                                                    :
 const counterSlice = createSlice({
     name: 'counter',
-    initialState: init,
+    initialState,
     reducers: {
         increment(state) {
             state.counter++;
@@ -22,9 +22,23 @@ const counterSlice = createSlice({
     },
 });
 
+const isAuthState = { isAuth: false };
+const authSlice = createSlice({
+    name: 'auth',
+    initialState: isAuthState,
+    reducers: {
+        login(state) {
+            state.isAuth = true;
+        },
+        logout(state) {
+            state.isAuth = false;
+        },
+    },
+});
+
 //: store all the dispatch functions in one payload object
 const store = configureStore({
-    reducer: counterSlice.reducer,
+    reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
 });
 
 // const counterReducer = (state = init , action) => {
@@ -61,4 +75,5 @@ const store = configureStore({
 // const store = createStore(counterReducer); //. no need to add redux.
 
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 export default store;

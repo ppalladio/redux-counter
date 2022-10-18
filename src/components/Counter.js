@@ -4,10 +4,10 @@ import { counterActions } from '../store/index';
 const Counter = () => {
     const dispatch = useDispatch();
     const counter = useSelector((state) => {
-        return state.counter;
+        return state.counter.counter;
     });
     const show = useSelector((state) => {
-        return state.showCounter;
+        return state.counter.showCounter;
     }); //' every state needs a new selector
     //' useSelector determines which piece of data we want to extract from the store
     const toggleCounterHandler = () => {
