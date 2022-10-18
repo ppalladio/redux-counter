@@ -1,6 +1,6 @@
 import classes from './Counter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { counterActions } from '../store/index';
 const Counter = () => {
     const dispatch = useDispatch();
     const counter = useSelector((state) => {
@@ -11,17 +11,18 @@ const Counter = () => {
     }); //' every state needs a new selector
     //' useSelector determines which piece of data we want to extract from the store
     const toggleCounterHandler = () => {
-        dispatch({ type: 'toggle' });
-    }; 
+        dispatch(counterActions.toggle());
+    };
 
     const increment = () => {
-        dispatch({ type: 'increment' });
+        dispatch(counterActions.increment());
     };
     const decrement = () => {
-        dispatch({ type: 'decrement' });
+        dispatch(counterActions.decrement());
     };
     const increase = () => {
-        dispatch({ type: 'increase', value: 5 }); //.the name of the payload has to be the same as the name of action.xxx
+        // dispatch({ type: 'increase', value: 5 }); //:the name of the payload has to be the same as the name of action.xxx in redux file
+        dispatch(counterActions.increase(5)); //. if we are using this , the underlying object will be {type:'xxxx'} , payload: [the value passed in]. hence, in the index.js,it needs to be action.payload}
     };
     return (
         <main className={classes.counter}>
